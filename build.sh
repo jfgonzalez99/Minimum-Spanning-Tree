@@ -1,1 +1,1 @@
-javac Test.java
+javac ./mst/Test.java

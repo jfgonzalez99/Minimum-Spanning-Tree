@@ -1,4 +1,5 @@
-import objects.CompleteGraph;
+package mst;
+import mst.objects.CompleteGraph;
 
 class Test {
     public static void main(String[] args) {

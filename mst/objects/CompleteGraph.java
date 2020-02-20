@@ -6,7 +6,7 @@
  * @author Justin Gonzalez
  * @author Carlos Robles
  */
-package objects;
+package mst.objects;
 
 public class CompleteGraph {
     public int numpoints;
