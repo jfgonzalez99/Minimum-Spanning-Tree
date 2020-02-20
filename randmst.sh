@@ -3,5 +3,4 @@ NUMPOINTS=$2
 NUMTRIALS=$3
 DIMENSION=$4
 
-javac Test.java
 java Test ${NUMPOINTS} ${NUMTRIALS} ${DIMENSION}
