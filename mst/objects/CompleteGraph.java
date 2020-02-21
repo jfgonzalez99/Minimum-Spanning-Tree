@@ -23,11 +23,13 @@ public class CompleteGraph {
         edges = makeEdgeMatrix();
     }
 
+    // Creates a matrix representation of the edges in the graph
     private float[][] makeEdgeMatrix() {
         float[][] e = new float[numpoints][numpoints];
         for (int i = 0; i < numpoints; i++) {
-            for (int j = 0; j < numpoints; j++) {
+            for (int j = i; j < numpoints; j++) {
                 e[i][j] = calcWeight(i, j);
+                e[j][i] = e[i][j];
             }
         }
         return e;
