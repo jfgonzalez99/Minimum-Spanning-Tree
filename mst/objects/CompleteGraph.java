@@ -14,7 +14,7 @@ public class CompleteGraph {
     public int numpoints;
     public int dimension;
     public float[][] edges;
-    Random rand = new Random();
+    public float[][] mst;
     
     // Complete Graph Class Constructor
     public CompleteGraph(int n, int d) {
@@ -28,19 +28,23 @@ public class CompleteGraph {
         float[][] e = new float[numpoints][numpoints];
         for (int i = 0; i < numpoints; i++) {
             for (int j = i; j < numpoints; j++) {
-                e[i][j] = calcWeight(i, j);
-                e[j][i] = e[i][j];
+                // The distance between a vertex and itself is 0
+                if (i == j) {
+                    e[i][j] = 0;
+                }
+                else {
+                    e[i][j] = calcWeight(i, j);
+                    e[j][i] = 0;
+                }
             }
         }
         return e;
     }
 
+    Random rand = new Random();
+
     // Calculates weight of an edge
     private float calcWeight(int u, int v) {
-        // Distance between a vertex and itself is zero
-        if (u == v) {
-            return 0;
-        }
         if (dimension == 1) {
             // Return random number between 0 and 1
             return rand.nextFloat();
@@ -83,4 +87,15 @@ public class CompleteGraph {
             System.out.print("\n");
         }
     }
+
+    /**
+     * Implementation of Prim's algorithm for constructing the minimum spanning 
+     * tree of a complete graph. Generates a list of edges that connect all 
+     * vertices with the minimum possible edge weight.
+     */
+    public void prim() {
+        mst = new float[numpoints - 1][3];
+        
+    }
+
 }
