@@ -8,8 +8,6 @@ class Test {
         int d = Integer.parseInt(args[2]);
 
         CompleteGraph testGraph = new CompleteGraph(n, d);
-        System.out.println(testGraph.numpoints);
-        System.out.println(numtrials);
-        System.out.println(testGraph.dimension);
+        testGraph.printEdges();
     }
 }
