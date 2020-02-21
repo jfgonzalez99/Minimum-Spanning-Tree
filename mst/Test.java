@@ -9,6 +9,7 @@ class Test {
 
         CompleteGraph testGraph = new CompleteGraph(n, d);
         System.out.println(testGraph.numpoints);
+        System.out.println(numtrials);
         System.out.println(testGraph.dimension);
     }
 }
