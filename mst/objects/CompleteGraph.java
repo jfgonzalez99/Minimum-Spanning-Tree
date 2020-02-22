@@ -102,8 +102,14 @@ public class CompleteGraph {
      * vertices with the minimum possible edge weight.
      */
     public void prim() {
+        // List of edges in MST
         mst = new double[numpoints - 1][3];
+
+        // Initialize list implementation
         double[][] h = new double[numpoints - 1][3];
+        // Set first edge in matrix to be starting edge
+        h[0] = new double[] {0, 0};
+
         double[][] s = new double[numpoints - 1][3];
 
         double[] dist = new double[numpoints];
@@ -112,6 +118,9 @@ public class CompleteGraph {
             dist[i] = Double.POSITIVE_INFINITY;
             prev[i] = -1; // Here we treat -1 like null
         }
+
+        dist[0] = 0;
+
     }
 
 }
