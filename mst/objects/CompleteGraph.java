@@ -13,8 +13,8 @@ import java.lang.Math;
 public class CompleteGraph {
     public int numpoints;
     public int dimension;
-    public float[][] edges;
-    public float[][] mst;
+    public double[][] edges;
+    public double[][] mst;
     
     // Complete Graph Class Constructor
     public CompleteGraph(int n, int d) {
@@ -24,8 +24,8 @@ public class CompleteGraph {
     }
 
     // Creates a matrix representation of the edges in the graph
-    private float[][] makeEdgeMatrix() {
-        float[][] e = new float[numpoints][numpoints];
+    private double[][] makeEdgeMatrix() {
+        double[][] e = new double[numpoints][numpoints];
         for (int i = 0; i < numpoints; i++) {
             for (int j = i; j < numpoints; j++) {
                 // The distance between a vertex and itself is 0
@@ -44,19 +44,19 @@ public class CompleteGraph {
     Random rand = new Random();
 
     // Calculates weight of an edge
-    private float calcWeight(int u, int v) {
+    private double calcWeight(int u, int v) {
         if (dimension == 1) {
             // Return random number between 0 and 1
-            return rand.nextFloat();
+            return rand.nextDouble();
         }
         else if (dimension >= 2 && dimension <= 4 ) {
             // p1 and p2 hold the coordinates of u and v
-            float [] p1 = new float[dimension];
-            float [] p2 = new float[dimension];
+            double [] p1 = new double[dimension];
+            double [] p2 = new double[dimension];
             for (int i = 0; i < dimension; i++) {
                 // Give p1 and p2 random coordinates
-                p1[i] = rand.nextFloat();
-                p2[i] = rand.nextFloat();
+                p1[i] = rand.nextDouble();
+                p2[i] = rand.nextDouble();
             }
             return distance(p1,p2);
         }
@@ -67,13 +67,13 @@ public class CompleteGraph {
     }
 
     // Calculates the Euclidean distance between two vertices
-    private float distance(float[] p1, float[] p2) {
-        float sum = 0;
+    private double distance(double[] p1, double[] p2) {
+        double sum = 0;
         for (int i = 0; i < dimension; i++) {
             // Square the difference between each coordinate
             sum += Math.pow(p1[i] - p2[i], 2);
         }
-        return (float) Math.pow(sum, 0.5);
+        return Math.pow(sum, 0.5);
     }
 
     /**
@@ -89,13 +89,29 @@ public class CompleteGraph {
     }
 
     /**
+     * Remove edges from graph that are unlikely to be used in the spanning  
+     * tree.
+     */
+    public void pruneEdges() {
+
+    }
+
+    /**
      * Implementation of Prim's algorithm for constructing the minimum spanning 
      * tree of a complete graph. Generates a list of edges that connect all 
      * vertices with the minimum possible edge weight.
      */
     public void prim() {
-        mst = new float[numpoints - 1][3];
-        
+        mst = new double[numpoints - 1][3];
+        double[][] h = new double[numpoints - 1][3];
+        double[][] s = new double[numpoints - 1][3];
+
+        double[] dist = new double[numpoints];
+        double[] prev = new double[numpoints];
+        for (int i = 0; i < numpoints; i++) {
+            dist[i] = Double.POSITIVE_INFINITY;
+            prev[i] = -1; // Here we treat -1 like null
+        }
     }
 
 }

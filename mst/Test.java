@@ -11,11 +11,17 @@ class Test {
         if (n < 1) {
             throw new IllegalArgumentException("There must be at least one vertex to form a complete graph.");
         }
+        if (numtrials < 1) {
+            throw new IllegalArgumentException("You must run at least one trial.");
+        }
         if (d < 1 || d > 4) {
             throw new IllegalArgumentException("The dimension must be at lest 1 and no more than 4.");
         }
 
-        CompleteGraph testGraph = new CompleteGraph(n, d);
-        testGraph.printEdges();
+        for (int i = 0; i < numtrials; i++) {
+            CompleteGraph testGraph = new CompleteGraph(n, d);
+            testGraph.printEdges();
+            System.out.println();
+        }
     }
 }
