@@ -160,6 +160,21 @@ public class CompleteGraph {
         return mst;
     }
 
+    /**
+     * Calculates the sum of the edge weights in the minimum spanning tree
+     * @return sum
+     */
+    public double treeSize() {
+        double sum = 0;
+        for (int i = 0; i < numpoints - 1; i++) {
+            sum += mst[i][2];
+        }
+        return sum;
+    }
+
+    /**
+     * Print the minimum spanning tree
+     */
     public void printMST() {
         for (int i = 0; i < numpoints - 1; i++) {
             for (int j = 0; j < 3; j++) {
