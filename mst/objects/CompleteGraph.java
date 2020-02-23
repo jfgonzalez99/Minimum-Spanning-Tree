@@ -23,33 +23,35 @@ public class CompleteGraph {
         edges = makeEdgeMatrix();
     }
 
-    // Creates a matrix representation of the edges in the graph
+    /**
+     * Creates a matrix representation of the edges in the graph
+     * @return edge matrix
+     */
     private double[][] makeEdgeMatrix() {
-        double[][] e = new double[numpoints][numpoints];
-        for (int i = 0; i < numpoints; i++) {
-            for (int j = i; j < numpoints; j++) {
-                // The distance between a vertex and itself is 0
-                if (i == j) {
-                    e[i][j] = 0;
-                }
-                else {
-                    e[i][j] = calcWeight(i, j);
-                    e[j][i] = 0;
-                }
+        double[][] e = new double[numpoints - 1][];
+        for (int i = 0; i < numpoints - 1; i++) {
+            e[i] = new double[numpoints - 1 - i];
+            for (int j = 0; j < numpoints - 1 - i; j++) {
+                e[i][j] = calcWeight(i, j);
             }
         }
         return e;
     }
 
-    Random rand = new Random();
+    Random rand = new Random(1234);
 
-    // Calculates weight of an edge
+    /**
+     * Calculates the weight of edge between two vertices
+     * @param u
+     * @param v
+     * @return weight
+     */
     private double calcWeight(int u, int v) {
         if (dimension == 1) {
             // Return random number between 0 and 1
             return rand.nextDouble();
         }
-        else if (dimension >= 2 && dimension <= 4 ) {
+        else {
             // p1 and p2 hold the coordinates of u and v
             double [] p1 = new double[dimension];
             double [] p2 = new double[dimension];
@@ -60,13 +62,14 @@ public class CompleteGraph {
             }
             return distance(p1,p2);
         }
-        // Returns 0 if dimension is greater than 4
-        else {
-            return 0;
-        }
     }
 
-    // Calculates the Euclidean distance between two vertices
+    /**
+     * Calculates the Euclidean distance between two vertices
+     * @param p1
+     * @param p2
+     * @return distance
+     */
     private double distance(double[] p1, double[] p2) {
         double sum = 0;
         for (int i = 0; i < dimension; i++) {
@@ -80,8 +83,8 @@ public class CompleteGraph {
      * Print edge matrix for a CompleteGraph
      */
     public void printEdges() {
-        for (int i = 0; i < numpoints; i++) {
-            for (int j = 0; j < numpoints; j++) {
+        for (int i = 0; i < numpoints - 1; i++) {
+            for (int j = 0; j < numpoints - 1 - i; j++) {
                 System.out.print(edges[i][j] + "  ");
             }
             System.out.print("\n");
@@ -106,11 +109,12 @@ public class CompleteGraph {
         mst = new double[numpoints - 1][3];
 
         // Initialize list implementation
-        double[][] h = new double[numpoints - 1][3];
-        // Set first edge in matrix to be starting edge
-        h[0] = new double[] {0, 0};
+        HeapList h = new HeapList(numpoints);
+        // Set first vertex to be starting vertex
+        h.insert(0,0);
 
-        double[][] s = new double[numpoints - 1][3];
+        MySet v_minus_s = new MySet(numpoints);
+        v_minus_s.remove(0);
 
         double[] dist = new double[numpoints];
         double[] prev = new double[numpoints];
@@ -120,7 +124,22 @@ public class CompleteGraph {
         }
 
         dist[0] = 0;
+        while (!h.isEmpty()) {
+            int v = h.deletemin();
+            v_minus_s.remove(v);
+            for (int w = v + 1; w < numpoints; w++) {
+                if (v_minus_s.contains(w)) {
+                    if (dist[w] > edges[v][w - v - 1]) {
+                        dist[w] = edges[v][w - v - 1];
+                        prev[w] = v;
+                        h.insert(w, dist[w]);
+                    }
+                }
+            }
+        }
 
+        for (int i = 0; i < numpoints; i++) {
+            System.out.println(prev[i] + "  " + dist[i]);
+        }
     }
-
 }

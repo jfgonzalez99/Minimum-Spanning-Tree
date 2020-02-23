@@ -1,5 +1,5 @@
 package mst;
-import mst.objects.CompleteGraph;
+import mst.objects.*;
 
 class Test {
     public static void main(String[] args) {
@@ -21,6 +21,9 @@ class Test {
         for (int i = 0; i < numtrials; i++) {
             CompleteGraph testGraph = new CompleteGraph(n, d);
             testGraph.printEdges();
+            System.out.println();
+
+            testGraph.prim();
             System.out.println();
         }
     }
