@@ -14,8 +14,8 @@ class Test {
         if (numtrials < 1) {
             throw new IllegalArgumentException("You must run at least one trial.");
         }
-        if (d < 1 || d > 4) {
-            throw new IllegalArgumentException("The dimension must be at lest 1 and no more than 4.");
+        if (d < 0 || d == 1 || d > 4) {
+            throw new IllegalArgumentException("The dimension must be 0, 2, 3, or 4");
         }
 
         for (int i = 0; i < numtrials; i++) {
@@ -24,7 +24,7 @@ class Test {
             System.out.println();
 
             testGraph.prim();
-            System.out.println();
+            testGraph.printMST();
         }
     }
 }

@@ -23,16 +23,31 @@ public class CompleteGraph {
         edges = makeEdgeMatrix();
     }
 
+    // /**
+    //  * Creates a jagged matrix representation of the edges in the graph
+    //  * @return edge matrix
+    //  */
+    // private double[][] makeEdgeMatrix2() {
+    //     double[][] e = new double[numpoints - 1][];
+    //     for (int i = 0; i < numpoints - 1; i++) {
+    //         e[i] = new double[numpoints - 1 - i];
+    //         for (int j = 0; j < numpoints - 1 - i; j++) {
+    //             e[i][j] = calcWeight(i, j);
+    //         }
+    //     }
+    //     return e;
+    // }
+
     /**
      * Creates a matrix representation of the edges in the graph
      * @return edge matrix
      */
     private double[][] makeEdgeMatrix() {
-        double[][] e = new double[numpoints - 1][];
+        double[][] e = new double[numpoints][numpoints];
         for (int i = 0; i < numpoints - 1; i++) {
-            e[i] = new double[numpoints - 1 - i];
-            for (int j = 0; j < numpoints - 1 - i; j++) {
+            for (int j = i+1; j < numpoints; j++) {
                 e[i][j] = calcWeight(i, j);
+                e[j][i] = e[i][j];
             }
         }
         return e;
@@ -47,7 +62,7 @@ public class CompleteGraph {
      * @return weight
      */
     private double calcWeight(int u, int v) {
-        if (dimension == 1) {
+        if (dimension == 0) {
             // Return random number between 0 and 1
             return rand.nextDouble();
         }
@@ -83,8 +98,8 @@ public class CompleteGraph {
      * Print edge matrix for a CompleteGraph
      */
     public void printEdges() {
-        for (int i = 0; i < numpoints - 1; i++) {
-            for (int j = 0; j < numpoints - 1 - i; j++) {
+        for (int i = 0; i < numpoints; i++) {
+            for (int j = 0; j < numpoints; j++) {
                 System.out.print(edges[i][j] + "  ");
             }
             System.out.print("\n");
@@ -104,7 +119,7 @@ public class CompleteGraph {
      * tree of a complete graph. Generates a list of edges that connect all 
      * vertices with the minimum possible edge weight.
      */
-    public void prim() {
+    public double[][] prim() {
         // List of edges in MST
         mst = new double[numpoints - 1][3];
 
@@ -127,10 +142,10 @@ public class CompleteGraph {
         while (!h.isEmpty()) {
             int v = h.deletemin();
             v_minus_s.remove(v);
-            for (int w = v + 1; w < numpoints; w++) {
+            for (int w = 0; w < numpoints; w++) {
                 if (v_minus_s.contains(w)) {
-                    if (dist[w] > edges[v][w - v - 1]) {
-                        dist[w] = edges[v][w - v - 1];
+                    if (dist[w] > edges[v][w]) {
+                        dist[w] = edges[v][w];
                         prev[w] = v;
                         h.insert(w, dist[w]);
                     }
@@ -138,8 +153,19 @@ public class CompleteGraph {
             }
         }
 
-        for (int i = 0; i < numpoints; i++) {
-            System.out.println(prev[i] + "  " + dist[i]);
+        for (int i = 1; i < numpoints; i++) {
+            mst[i - 1] = new double[] {prev[i], i, dist[i]};
+        }
+
+        return mst;
+    }
+
+    public void printMST() {
+        for (int i = 0; i < numpoints - 1; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(mst[i][j] + "  ");
+            }
+            System.out.print("\n");
         }
     }
 }
