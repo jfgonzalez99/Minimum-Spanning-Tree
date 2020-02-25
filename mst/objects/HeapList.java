@@ -9,7 +9,8 @@ public class HeapList {
         size = n;
         list = new double[size];
         for (int i = 0; i < size; i++) {
-            list[i] = Double.POSITIVE_INFINITY;
+            // Distance will never exceed 2
+            list[i] = 100;
         }
     }
 
@@ -17,8 +18,11 @@ public class HeapList {
      * Inserts an element into the heap list
      */
     public void insert(int vertex, double value) {
+        // Only increase heap size if it goes from null to a new value
+        if (list[vertex] == 100) { 
+            length += 1;
+        }
         list[vertex] = value;
-        length += 1;
     }
 
     /**
@@ -28,14 +32,14 @@ public class HeapList {
         if (length > 0) {
             // Find min
             int minIndex = 0;
-            double minVal = Double.POSITIVE_INFINITY;
+            double minVal = 100;
             for (int i = 0; i < size; i++) {
                 if (list[i] < minVal) {
                     minIndex = i;
                     minVal = list[i];
                 }
             }
-            list[minIndex] = Double.POSITIVE_INFINITY;
+            list[minIndex] = 100;
             // Decrease length
             length -= 1;
             return minIndex;

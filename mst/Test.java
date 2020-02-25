@@ -28,24 +28,22 @@ class Test {
             runTrials();
         }
         else {
-            for (int i = 0; i < numtrials; i++) {
-                CompleteGraph testGraph = new CompleteGraph(n, d);
-                testGraph.printEdges();
-                System.out.println();
-
-                testGraph.prim();
-                testGraph.printMST();
-                System.out.println();
-            }
+            System.out.println("Size: " + n);
+            System.out.println("Dimension: " + d);
+            double avg = trialsAverage(n, d, true);
+            System.out.println("Average MST Size: " + avg);
         }
     }
 
-    private static double trialsAverage(int n, int d) {
+    private static double trialsAverage(int n, int d, boolean verbose) {
         double sum = 0;
         for (int i = 0; i < numtrials; i++) {
             CompleteGraph g = new CompleteGraph(n, d);
             g.prim();
             sum += g.treeSize();
+            if (verbose) {
+                System.out.println("Trial " + (i+1) + ": " + sum);
+            }
         }
         return sum / numtrials;
     }
@@ -64,7 +62,7 @@ class Test {
                 csvWriter.append(size + ", ");
                 System.out.print(size + ", ");
                 for (int dimension : dimensions) {
-                    double average = trialsAverage(size, dimension);
+                    double average = trialsAverage(size, dimension, false);
                     csvWriter.append(average + ", ");
                     System.out.print(average + ", ");
                 }

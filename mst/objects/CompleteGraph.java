@@ -23,6 +23,7 @@ public class CompleteGraph {
     public CompleteGraph(int n, int d) {
         numpoints = n;
         dimension = d;
+        vertices = new double[numpoints][dimension];
         randVertices();
     }
 
@@ -76,7 +77,6 @@ public class CompleteGraph {
      * Fills vertex list with random coordinates
      */
     private void randVertices() {
-        vertices = new double[numpoints][dimension];
         for (int i = 0; i < numpoints; i++) {
             for (int j = 0; j < dimension; j++) {
                 // Give vertex i random coordinates
@@ -194,5 +194,10 @@ public class CompleteGraph {
             }
             System.out.print("\n");
         }
+    }
+
+    public void printProgress(int completed, int total) {
+        double percent = completed / total;
+        System.out.print(percent + "%\r");
     }
 }
