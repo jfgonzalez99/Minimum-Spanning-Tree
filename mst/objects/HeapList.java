@@ -1,7 +1,5 @@
 package mst.objects;
 
-import java.io.IOException;
-
 public class HeapList {
     int size;
     double[] list;

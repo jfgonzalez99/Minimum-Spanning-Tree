@@ -15,34 +15,29 @@ public class CompleteGraph {
     public int dimension;
     public double[][] edges;
     public double[][] mst;
+    public double[][] vertices;
+
+    Random rand = new Random(1234);
     
     // Complete Graph Class Constructor
     public CompleteGraph(int n, int d) {
         numpoints = n;
         dimension = d;
-        edges = makeEdgeMatrix();
+        randVertices();
     }
 
-    // /**
-    //  * Creates a jagged matrix representation of the edges in the graph
-    //  * @return edge matrix
-    //  */
-    // private double[][] makeEdgeMatrix2() {
-    //     double[][] e = new double[numpoints - 1][];
-    //     for (int i = 0; i < numpoints - 1; i++) {
-    //         e[i] = new double[numpoints - 1 - i];
-    //         for (int j = 0; j < numpoints - 1 - i; j++) {
-    //             e[i][j] = calcWeight(i, j);
-    //         }
-    //     }
-    //     return e;
-    // }
+    /**
+     * Set a new seed for the random number generator
+     * @param seed
+     */
+    public void setSeed(int seed) {
+        rand = new Random(seed);
+    }
 
     /**
      * Creates a matrix representation of the edges in the graph
-     * @return edge matrix
      */
-    private double[][] makeEdgeMatrix() {
+    public void makeEdgeMatrix() {
         double[][] e = new double[numpoints][numpoints];
         for (int i = 0; i < numpoints - 1; i++) {
             for (int j = i+1; j < numpoints; j++) {
@@ -50,10 +45,8 @@ public class CompleteGraph {
                 e[j][i] = e[i][j];
             }
         }
-        return e;
+        edges = e;
     }
-
-    Random rand = new Random(1234);
 
     /**
      * Calculates the weight of edge between two vertices
@@ -80,18 +73,36 @@ public class CompleteGraph {
     }
 
     /**
+     * Fills vertex list with random coordinates
+     */
+    private void randVertices() {
+        vertices = new double[numpoints][dimension];
+        for (int i = 0; i < numpoints; i++) {
+            for (int j = 0; j < dimension; j++) {
+                // Give vertex i random coordinates
+                vertices[i][j] = rand.nextDouble();
+            }
+        }
+    }
+
+    /**
      * Calculates the Euclidean distance between two vertices
      * @param p1
      * @param p2
      * @return distance
      */
     private double distance(double[] p1, double[] p2) {
-        double sum = 0;
-        for (int i = 0; i < dimension; i++) {
-            // Square the difference between each coordinate
-            sum += Math.pow(p1[i] - p2[i], 2);
+        if (dimension == 0) {
+            return rand.nextDouble();
         }
-        return Math.pow(sum, 0.5);
+        else {
+            double sum = 0;
+            for (int i = 0; i < dimension; i++) {
+                // Square the difference between each coordinate
+                sum += Math.pow(p1[i] - p2[i], 2);
+            }
+            return Math.pow(sum, 0.5);
+        }
     }
 
     /**
@@ -144,8 +155,9 @@ public class CompleteGraph {
             v_minus_s.remove(v);
             for (int w = 0; w < numpoints; w++) {
                 if (v_minus_s.contains(w)) {
-                    if (dist[w] > edges[v][w]) {
-                        dist[w] = edges[v][w];
+                    double edge_vw = distance(vertices[v], vertices[w]);
+                    if (dist[w] > edge_vw) {
+                        dist[w] = edge_vw;
                         prev[w] = v;
                         h.insert(w, dist[w]);
                     }
