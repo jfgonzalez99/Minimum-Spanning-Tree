@@ -42,7 +42,7 @@ class Test {
             g.prim();
             sum += g.treeSize();
             if (verbose) {
-                System.out.println("Trial " + (i+1) + ": " + sum);
+                System.out.println("Sum at trial " + (i+1) + ": " + sum);
             }
         }
         return sum / numtrials;
