@@ -8,9 +8,10 @@ class Test {
     static int numtrials;
 
     public static void main(String[] args) {
-        int n = Integer.parseInt(args[0]);
-        numtrials = Integer.parseInt(args[1]);
-        int d = Integer.parseInt(args[2]);
+        int testcode = Integer.parseInt(args[0]);
+        int n = Integer.parseInt(args[1]);
+        numtrials = Integer.parseInt(args[2]);
+        int d = Integer.parseInt(args[3]);
 
         // Make sure arguments are valid
         if (n < 1) {
@@ -22,18 +23,21 @@ class Test {
         if (d < 0 || d == 1 || d > 4) {
             throw new IllegalArgumentException("The dimension must be 0, 2, 3, or 4");
         }
+        
+        if (testcode == 1) {
+            runTrials();
+        }
+        else {
+            for (int i = 0; i < numtrials; i++) {
+                CompleteGraph testGraph = new CompleteGraph(n, d);
+                testGraph.printEdges();
+                System.out.println();
 
-        // for (int i = 0; i < numtrials; i++) {
-        // CompleteGraph testGraph = new CompleteGraph(n, d);
-        // testGraph.printEdges();
-        // System.out.println();
-
-        // testGraph.prim();
-        // testGraph.printMST();
-        // System.out.println();
-        // }
-
-        runTrials();
+                testGraph.prim();
+                testGraph.printMST();
+                System.out.println();
+            }
+        }
     }
 
     private static double trialsAverage(int n, int d) {
@@ -58,11 +62,14 @@ class Test {
 
             for (int size : sizes) {
                 csvWriter.append(size + ", ");
+                System.out.print(size + ", ");
                 for (int dimension : dimensions) {
                     double average = trialsAverage(size, dimension);
                     csvWriter.append(average + ", ");
+                    System.out.print(average + ", ");
                 }
                 csvWriter.append("\n");
+                System.out.print("\n");
             }
 
             csvWriter.flush();

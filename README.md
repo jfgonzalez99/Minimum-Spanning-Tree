@@ -6,4 +6,4 @@ Programming Assignment 1 for CS 124
 
 ## How to Run
 
-```./randmst.sh numpoints numtrials dimension```
+```./randmst.sh 0 numpoints numtrials dimension```
