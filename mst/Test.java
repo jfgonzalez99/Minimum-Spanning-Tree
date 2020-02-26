@@ -47,13 +47,14 @@ class Test {
     }
 
     private static void runTrials() {
-        // Write results to averages.csv
         FileWriter csvWriter;
         try {
-            csvWriter = new FileWriter("../averages.csv");
+            // Write results to averages.csv
+            csvWriter = new FileWriter("averages.csv");
             csvWriter.append("n, d=0, d=2, d=3, d=4\n");
 
-            int[] sizes = {128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144};
+            int[] sizes = {128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 
+                           65536, 131072, 262144};
             int[] dimensions = {0,2,3,4};
 
             for (int size : sizes) {
@@ -61,11 +62,15 @@ class Test {
                 System.out.print(size + ", ");
                 for (int dimension : dimensions) {
                     double average = trialsAverage(size, dimension, false);
-                    csvWriter.append(average + ", ");
-                    System.out.print(average + ", ");
+                    if (dimension == dimensions[dimensions.length - 1]) {
+                        csvWriter.append(average + "\n");
+                        System.out.print(average + "\n");
+                    }
+                    else {
+                        csvWriter.append(average + ", ");
+                        System.out.print(average + ", ");
+                    }
                 }
-                csvWriter.append("\n");
-                System.out.print("\n");
             }
 
             csvWriter.flush();
