@@ -1,3 +1,4 @@
+#!/bin/bash
 TESTCODE=$1
 NUMPOINTS=$2
 NUMTRIALS=$3

@@ -17,7 +17,7 @@ public class CompleteGraph {
     public double[][] mst;
     public double[][] vertices;
 
-    Random rand = new Random(1234);
+    Random rand = new Random();
     
     // Complete Graph Class Constructor
     public CompleteGraph(int n, int d) {
@@ -25,14 +25,6 @@ public class CompleteGraph {
         dimension = d;
         vertices = new double[numpoints][dimension];
         randVertices();
-    }
-
-    /**
-     * Set a new seed for the random number generator
-     * @param seed
-     */
-    public void setSeed(int seed) {
-        rand = new Random(seed);
     }
 
     /**

@@ -28,10 +28,8 @@ class Test {
             runTrials();
         }
         else {
-            System.out.println("Size: " + n);
-            System.out.println("Dimension: " + d);
-            double avg = trialsAverage(n, d, true);
-            System.out.println("Average MST Size: " + avg);
+            double avg = trialsAverage(n, d, false);
+            System.out.println(avg + " " + n + " " + numtrials + " " + d);
         }
     }
 
@@ -42,7 +40,7 @@ class Test {
             g.prim();
             sum += g.treeSize();
             if (verbose) {
-                System.out.println("Sum at trial " + (i+1) + ": " + sum);
+                System.out.println("Trial " + (i+1) + ": " + g.treeSize());
             }
         }
         return sum / numtrials;
