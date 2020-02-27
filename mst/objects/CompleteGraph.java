@@ -19,50 +19,17 @@ public class CompleteGraph {
 
     Random rand = new Random();
     
-    // Complete Graph Class Constructor
+    /**
+     * Random complete graph constructor. Takes as input the size and dimension 
+     * of the graph.
+     * @param n
+     * @param d
+     */
     public CompleteGraph(int n, int d) {
         numpoints = n;
         dimension = d;
         vertices = new double[numpoints][dimension];
         randVertices();
-    }
-
-    /**
-     * Creates a matrix representation of the edges in the graph
-     */
-    public void makeEdgeMatrix() {
-        double[][] e = new double[numpoints][numpoints];
-        for (int i = 0; i < numpoints - 1; i++) {
-            for (int j = i+1; j < numpoints; j++) {
-                e[i][j] = calcWeight(i, j);
-                e[j][i] = e[i][j];
-            }
-        }
-        edges = e;
-    }
-
-    /**
-     * Calculates the weight of edge between two vertices
-     * @param u
-     * @param v
-     * @return weight
-     */
-    private double calcWeight(int u, int v) {
-        if (dimension == 0) {
-            // Return random number between 0 and 1
-            return rand.nextDouble();
-        }
-        else {
-            // p1 and p2 hold the coordinates of u and v
-            double [] p1 = new double[dimension];
-            double [] p2 = new double[dimension];
-            for (int i = 0; i < dimension; i++) {
-                // Give p1 and p2 random coordinates
-                p1[i] = rand.nextDouble();
-                p2[i] = rand.nextDouble();
-            }
-            return distance(p1,p2);
-        }
     }
 
     /**
@@ -75,6 +42,20 @@ public class CompleteGraph {
                 vertices[i][j] = rand.nextDouble();
             }
         }
+    }
+
+    /**
+     * Creates a matrix representation of the edges in the graph
+     */
+    public void makeEdgeMatrix() {
+        double[][] e = new double[numpoints][numpoints];
+        for (int i = 0; i < numpoints - 1; i++) {
+            for (int j = i+1; j < numpoints; j++) {
+                e[i][j] = distance(vertices[i], vertices[j]);
+                e[j][i] = e[i][j];
+            }
+        }
+        edges = e;
     }
 
     /**
@@ -107,14 +88,6 @@ public class CompleteGraph {
             }
             System.out.print("\n");
         }
-    }
-
-    /**
-     * Remove edges from graph that are unlikely to be used in the spanning  
-     * tree.
-     */
-    public void pruneEdges() {
-
     }
 
     /**
@@ -186,10 +159,5 @@ public class CompleteGraph {
             }
             System.out.print("\n");
         }
-    }
-
-    public void printProgress(int completed, int total) {
-        double percent = completed / total;
-        System.out.print(percent + "%\r");
     }
 }
