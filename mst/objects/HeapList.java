@@ -5,6 +5,10 @@ public class HeapList {
     double[] list;
     int length = 0;
 
+    /**
+     * "Heap"List constructor. Takes as input the size of the HeapList.
+     * @param n
+     */
     public HeapList(int n) {
         size = n;
         list = new double[size];

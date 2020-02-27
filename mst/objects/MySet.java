@@ -4,6 +4,10 @@ public class MySet {
     int size;
     int[] list;
 
+    /**
+     * Custom set construct. Takes as input the size of the set.
+     * @param n
+     */
     public MySet(int n) {
         size = n;
         list = new int[size];
