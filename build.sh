@@ -1,2 +1,2 @@
 #!/bin/bash
-javac ./mst/Test.java
+javac ./mst/Driver.java

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import mst.objects.*;
 
-class Test {
+class Driver {
     static int numtrials;
 
     public static void main(String[] args) {
@@ -27,12 +27,21 @@ class Test {
         if (testcode == 1) {
             runTrials();
         }
+        else if (testcode == 2) {
+            timeTrials(d);
+        }
         else {
             double avg = trialsAverage(n, d, false);
             System.out.println(avg + " " + n + " " + numtrials + " " + d);
         }
     }
 
+    /**
+     * Calculates average tree size over numtrials trials
+     * @param n : numpoints
+     * @param d : dimension
+     * @param verbose : true if you want to print results of each trial
+     */
     private static double trialsAverage(int n, int d, boolean verbose) {
         double sum = 0;
         for (int i = 0; i < numtrials; i++) {
@@ -46,6 +55,9 @@ class Test {
         return sum / numtrials;
     }
 
+    /**
+     * Runs trials and writes average tree sizes to csv
+     */
     private static void runTrials() {
         FileWriter csvWriter;
         try {
@@ -79,6 +91,26 @@ class Test {
             // Catch the exception where file does not exist
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Times how many nanoseconds it takes to do a single trial of each size 
+     * given dimension d
+     * @param d
+     */
+    private static void timeTrials(int d) {
+        int[] sizes = {128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 
+                       65536, 131072, 262144};
         
+        for (int size : sizes) {
+            long startTime = System.nanoTime();
+
+            CompleteGraph g = new CompleteGraph(size, d);
+            g.prim();
+
+            long endTime = System.nanoTime();
+            long totalTime = (endTime - startTime);
+            System.out.println(size + ", " + totalTime);
+        }
     }
 }
