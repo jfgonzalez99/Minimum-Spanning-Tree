@@ -25,3 +25,29 @@ To run the algorithm on random complete graphs of size `numpoints = [128, 256, 5
 To time single trials for each size of a given dimension `dimension` run the following command:
 
 ```./randmst.sh 2 1 1 dimension```
+
+## File Structure
+
+### `mst/Driver`
+
+Main class. Runs trials, exports averages to csv file, and times trials.
+
+### `mst/objects/CompleteGraph`
+
+Constructs random complete graphs of size `numpoints` and dimension `dimension`. Contains method for Prim's algorithm to construct the minimum spanning tree of the random complete graph. 
+
+### `mst/objects/HeapList`
+
+Constructs a list data structure with `deletemin()`, `insert()`, and `isEmpty()` methods.
+
+### `mst/objects/MySet`
+
+Constructs a list implementation of a set data structure with `remove()` and `contains()` methods.
+
+### `build.sh`
+
+Compiles the Java program.
+
+### `randmst.sh`
+
+Executes the Java program using the command line inputs.
