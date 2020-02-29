@@ -6,7 +6,7 @@ public class HeapList {
     int length = 0;
 
     /**
-     * "Heap"List constructor. Takes as input the size of the HeapList.
+     * "Heap"List constructor. Takes as input the size of the HeapList
      * @param n
      */
     public HeapList(int n) {

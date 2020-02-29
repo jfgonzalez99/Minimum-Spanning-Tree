@@ -5,7 +5,7 @@ public class MySet {
     int[] list;
 
     /**
-     * Custom set construct. Takes as input the size of the set.
+     * Custom set construct. Takes as input the size of the set
      * @param n
      */
     public MySet(int n) {
