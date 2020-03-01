@@ -4,6 +4,8 @@ Programming Assignment 1 for CS 124
 
 *Carlos Robles and Justin Gonzalez*
 
+This project uses Prim's algorithm to construct the minimum spanning trees of randomly generated complete graphs in order to estimate a function that describes the expected MST size for a complete graph of size `n` and dimension `d`. We discuss our findings in `Findings.pdf`.
+
 ## How to Run
 
 To run the algorithm on random complete graphs of size `numpoints` and dimension `dimension` and return the average MST size over `numtrials`:
